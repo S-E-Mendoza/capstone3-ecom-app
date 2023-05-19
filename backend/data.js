@@ -11,7 +11,7 @@ const data = {
       brand: 'Dong-A',
       rating: 4.2,
       numReviews: 10,
-      description: 'sub-70, high quality bond paper',
+      description: 'subs-20/70gsm, high quality bond paper',
     },
     {
       name: 'Hard Copy Bond Paper',
@@ -24,7 +24,7 @@ const data = {
       brand: 'Dong-A',
       rating: 4.59,
       numReviews: 25,
-      description: 'sub-70, high quality bond paper',
+      description: 'subs-20/70gsm, high quality bond paper',
     },
     {
       name: 'Hard Copy Bond Paper',
@@ -37,7 +37,7 @@ const data = {
       brand: 'Dong-A',
       rating: 4.8,
       numReviews: 30,
-      description: 'sub-70, high quality bond paper',
+      description: 'subs-20/70gsm, high quality bond paper',
     },
   ],
 };
