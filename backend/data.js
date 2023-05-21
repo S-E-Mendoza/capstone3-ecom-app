@@ -1,6 +1,7 @@
 const data = {
   products: [
     {
+      _id: '1',
       name: 'Hard Copy Bond Paper',
       slug: 'hardcopy-letter-bond-paper',
       category: 'Office Supplies',
@@ -14,6 +15,7 @@ const data = {
       description: 'subs-20/70gsm, high quality bond paper',
     },
     {
+      _id: '2',
       name: 'Hard Copy Bond Paper',
       slug: 'hardcopy-legal-bond-paper',
       category: 'Office Supplies',
@@ -27,6 +29,7 @@ const data = {
       description: 'subs-20/70gsm, high quality bond paper',
     },
     {
+      _id: '3',
       name: 'Hard Copy Bond Paper',
       slug: 'hardcopy-a4-bond-paper',
       category: 'Office Supplies',
