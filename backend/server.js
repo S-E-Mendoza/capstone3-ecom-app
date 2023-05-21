@@ -1,5 +1,18 @@
 import express from 'express';
 import data from './data.js';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('connected to cloud database');
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
 
 const app = express();
 

@@ -99,10 +99,8 @@ function ProductPage() {
             </ListGroupItem>
             <ListGroupItem>Price : ₱{product.price}</ListGroupItem>
             <ListGroupItem>
-              Description:{' '}
-              <p>
-                {product.description}, {product.size}, {product.category}
-              </p>
+              Brand: <p>{product.brand}</p>
+              Description: <p>{product.description}</p>
             </ListGroupItem>
           </ListGroup>
         </Col>
