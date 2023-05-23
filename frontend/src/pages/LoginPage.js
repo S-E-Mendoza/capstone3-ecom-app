@@ -7,11 +7,15 @@ import {
   FormLabel,
 } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
-import { Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { Store } from '../Store';
+import { toast } from 'react-toastify';
+import { getError } from '../utils';
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const { search } = useLocation();
   const redirecInUrl = new URLSearchParams(search).get('redirect');
   const redirect = redirecInUrl ? redirecInUrl : '/';
@@ -19,16 +23,31 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/users/login', {
+      const { data } = await Axios.post('/api/users/login', {
         email,
         password,
       });
-      console.log(data);
-    } catch (err) {}
+      ctxDispatch({ type: 'USER_LOGIN', payload: data });
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      navigate(redirect || '/');
+      toast.success('Successfully logged in!');
+    } catch (err) {
+      toast.error(getError(err));
+    }
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
+
   return (
     <Container className="small-container">
       <Helmet>
