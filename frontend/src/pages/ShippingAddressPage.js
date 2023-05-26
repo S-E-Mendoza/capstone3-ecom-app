@@ -36,11 +36,13 @@ export default function ShippingAddressPage() {
     e.preventDefault();
     ctxDispatch({
       type: 'SAVE_SHIPPING_ADDRESS',
-      payload: fullName,
-      address,
-      city,
-      postalCode,
-      country,
+      payload: {
+        fullName,
+        address,
+        city,
+        postalCode,
+        country,
+      },
     });
     localStorage.setItem(
       'shippingAddress',

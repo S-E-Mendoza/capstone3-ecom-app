@@ -12,6 +12,9 @@ import { Store } from './Store';
 import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
 import ShippingAddressPage from './pages/ShippingAddressPage';
+import SignupPage from './pages/SignupPage';
+import PaymentMethodPage from './pages/PaymentMethodPage';
+import ReviewOrderPage from './pages/ReviewOrderPage';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -21,6 +24,7 @@ function App() {
     ctxDispatch({ type: 'USER_LOGOUT' });
     localStorage.removeItem('userInfo');
     localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('paymentMethod');
   };
   return (
     <BrowserRouter>
@@ -72,7 +76,10 @@ function App() {
               <Route path="/product/:slug" element={<ProductPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/place-order" element={<ReviewOrderPage />} />
               <Route path="/shipping" element={<ShippingAddressPage />} />
+              <Route path="/payment" element={<PaymentMethodPage />} />
               <Route path="/" element={<HomePage />} />
             </Routes>
           </Container>

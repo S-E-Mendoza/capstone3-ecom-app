@@ -65,10 +65,10 @@ export default function CartPage() {
                     </Col>
                     <Col md={3}>
                       <Button
-                        variant="light"
                         onClick={() =>
                           updateCartHandler(item, item.quantity - 1)
                         }
+                        variant="light"
                         disabled={item.quantity === 1}>
                         <i className="fas fa-minus-circle"></i>
                       </Button>{' '}
