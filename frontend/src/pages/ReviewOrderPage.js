@@ -1,6 +1,11 @@
 import React, { useContext, useEffect, useReducer } from 'react';
-import CheckoutSteps from '../components/CheckoutSteps';
+import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
+import { Link, useNavigate } from 'react-router-dom';
+import { Store } from '../Store';
+import { toast } from 'react-toastify';
+import { getError } from '../utils';
+import LoadingBox from '../components/LoadingBox';
 import {
   Button,
   Card,
@@ -9,12 +14,7 @@ import {
   ListGroupItem,
   Row,
 } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { Store } from '../Store';
-import { toast } from 'react-toastify';
-import { getError } from '../utils';
-import axios from 'axios';
-import LoadingBox from '../components/LoadingBox';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -76,6 +76,7 @@ export default function ReviewOrderPage() {
       navigate('/payment');
     }
   }, [cart, navigate]);
+
   return (
     <div>
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>

@@ -11,9 +11,7 @@ export default function PaymentMethodPage() {
   const {
     cart: { shippingAddress, paymentMethod },
   } = state;
-  const [paymentMethodName, setPaymentMethod] = useState(
-    paymentMethod || 'PayPal',
-  );
+  const [paymentMethodName, setPaymentMethod] = useState(paymentMethod);
 
   useEffect(() => {
     if (!shippingAddress.address) {
