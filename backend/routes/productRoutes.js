@@ -10,6 +10,28 @@ productRouter.get('/', async (req, res) => {
   res.send(products);
 });
 
+productRouter.post(
+  '/',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const newProduct = new Product({
+      name: 'Nissan-Leaf' + Date.now(),
+      slug: 'Nissan-leaf-hatchback' + Date.now(),
+      image: '/images/Nissan-Leaf.png',
+      price: 0,
+      category: 'Hatchback',
+      brand: 'Nissan',
+      countInStock: 0,
+      rating: 0,
+      numReviews: 0,
+      description: 'Sample description',
+    });
+    const product = await newProduct.save();
+    res.send({ message: 'Product Created', product });
+  }),
+);
+
 const PAGE_SIZE = 3;
 
 productRouter.get(
