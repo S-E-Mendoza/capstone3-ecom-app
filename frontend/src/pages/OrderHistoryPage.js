@@ -61,7 +61,9 @@ export default function OrderHistoryPage() {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <table className="table align-content-between" variant="light">
+        <table
+          className="table align-content-between flex-column flex-wrap"
+          variant="light">
           <thead>
             <tr>
               <th>ID</th>

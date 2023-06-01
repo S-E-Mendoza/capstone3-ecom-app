@@ -16,7 +16,7 @@ userRouter.post(
           _id: user.id,
           name: user.name,
           email: user.email,
-          isAdmiin: user.isAdmin,
+          isAdmin: user.isAdmin,
           token: generateToken(user.toObject()),
         });
         return;
@@ -39,7 +39,7 @@ userRouter.post(
       _id: user.id,
       name: user.name,
       email: user.email,
-      isAdmiin: user.isAdmin,
+      isAdmin: user.isAdmin,
       token: generateToken(user.toObject()),
     });
   }),

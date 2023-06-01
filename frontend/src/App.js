@@ -1,13 +1,20 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Badge, Nav, NavDropdown } from 'react-bootstrap';
-import { useContext } from 'react';
+import {
+  Badge,
+  Button,
+  Nav,
+  NavDropdown,
+  NavItem,
+  NavLink,
+} from 'react-bootstrap';
+import { useContext, useEffect, useState } from 'react';
 import { Store } from './Store';
 import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
@@ -20,6 +27,14 @@ import OrderHistoryPage from './pages/OrderHistoryPage';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse';
 import ProfilePage from './pages/ProfilePage';
+import { getError } from './utils';
+import axios from 'axios';
+import SearchBox from './components/SearchBox.js';
+import SearchPage from './pages/SearchPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import DashboardPage from './pages/DashboardPage';
+import AdminRoute from './components/AdminRoute';
+import ProductListPage from './pages/ProductListPage';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -32,18 +47,46 @@ function App() {
     localStorage.removeItem('paymentMethod');
     window.location.href = '/login';
   };
+
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/categories`);
+        setCategories(data);
+      } catch (error) {
+        toast.error(getError(error));
+      }
+    };
+    fetchCategories();
+  }, []);
+
   return (
     <BrowserRouter>
-      <div className="d-flex flex-column site-container">
+      <div
+        className={
+          sidebarIsOpen
+            ? 'd-flex flex-column site-container active-cont'
+            : 'd-flex flex-column site-container'
+        }>
         <ToastContainer position="bottom-center" limit={1} />
         <header>
           <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
+              <Button
+                variant="dark"
+                onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+                <i className="fas fa-bars"></i>
+              </Button>
+
               <LinkContainer to="/">
                 <Navbar.Brand>M-Shop</Navbar.Brand>
               </LinkContainer>
               <NavbarToggle aria-controls="basic-navbar-nav" />
               <NavbarCollapse id="basic-navbar-nav">
+                <SearchBox />
                 <Nav className="me-auto w-100 justify-content-end">
                   <Link to="/cart" className="nav-link">
                     Cart
@@ -74,24 +117,103 @@ function App() {
                       Login
                     </Link>
                   )}
+                  {userInfo && userInfo.isAdmin && (
+                    <NavDropdown title="Admin" id="admin-nav-dropdown">
+                      <LinkContainer to="/admin/dashboard">
+                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/products">
+                        <NavDropdown.Item>Products</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/orders">
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/users">
+                        <NavDropdown.Item>Users</NavDropdown.Item>
+                      </LinkContainer>
+                    </NavDropdown>
+                  )}
                 </Nav>
               </NavbarCollapse>
             </Container>
           </Navbar>
         </header>
+
+        <div
+          className={
+            sidebarIsOpen
+              ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column'
+              : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
+          }>
+          <Nav className="flex-column text-white w-100 p-2">
+            <NavItem>
+              <strong>Categories</strong>
+            </NavItem>
+            {categories.map((category) => (
+              <NavItem key={category}>
+                <LinkContainer
+                  to={`/search-category=${category}`}
+                  onClick={() => setSidebarIsOpen(false)}>
+                  <NavLink>{category}</NavLink>
+                </LinkContainer>
+              </NavItem>
+            ))}
+          </Nav>
+        </div>
+
         <main>
           <Container className="mt-3">
             <Routes>
               <Route path="/product/:slug" element={<ProductPage />} />
               <Route path="/cart" element={<CartPage />} />
+              <Route path="/search" element={<SearchPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <ProfilePage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/place-order" element={<ReviewOrderPage />} />
-              <Route path="/order/:id" element={<OrderPage />} />
-              <Route path="/order-history" element={<OrderHistoryPage />} />
+              <Route
+                path="/order/:id"
+                element={
+                  <ProtectedRoute>
+                    <OrderPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/order-history"
+                element={
+                  <ProtectedRoute>
+                    <OrderHistoryPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/shipping" element={<ShippingAddressPage />} />
               <Route path="/payment" element={<PaymentMethodPage />} />
+              {/* Admin Routes */}
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <AdminRoute>
+                    <DashboardPage />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/products"
+                element={
+                  <AdminRoute>
+                    <ProductListPage />
+                  </AdminRoute>
+                }
+              />
+
               <Route path="/" element={<HomePage />} />
             </Routes>
           </Container>
