@@ -105,7 +105,7 @@ export default function ProductListPage() {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <fragment>
+        <>
           <table className="table">
             <thead>
               <tr>
@@ -147,7 +147,7 @@ export default function ProductListPage() {
               </Link>
             ))}
           </div>
-        </fragment>
+        </>
       )}
     </div>
   );
