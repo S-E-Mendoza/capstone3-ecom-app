@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import { Store } from '../Store';
 import { getError } from '../utils';
 import LoadingBox from '../components/LoadingBox';
@@ -68,6 +69,8 @@ export default function ProductListPage() {
 
   const { state } = useContext(Store);
   const { userInfo } = state;
+
+  const { isActive, setIsActive } = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -154,6 +157,7 @@ export default function ProductListPage() {
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
+                <th>STATUS</th>
                 <th>ACTIONS</th>
               </tr>
             </thead>
@@ -165,6 +169,9 @@ export default function ProductListPage() {
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
+                  <td>
+                    {product.isActive ? 'Active' : 'Inactive/Deactivated'}
+                  </td>
                   <td>
                     <Button
                       type="button"

@@ -12,4 +12,10 @@ seedRouter.get('/', async (req, res) => {
   const createdUsers = await User.insertMany(data.users);
   res.send({ createdProducts, createdUsers });
 });
+
+seedRouter.delete('/del', async (req, res) => {
+  await Product.deleteMany({});
+  await User.deleteMany({});
+  res.status(200).send({ message: 'Data Deleted' });
+});
 export default seedRouter;

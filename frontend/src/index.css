@@ -67,6 +67,9 @@ main {
 }
 
 /* sidebar */
+.navbar-brand {
+  font-weight: bold;
+}
 .side-navbar {
   width: 240px;
   height: 100%;

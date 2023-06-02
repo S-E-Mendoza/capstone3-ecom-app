@@ -40,8 +40,10 @@ function Product(props) {
           numReviews={product.numReviews}></Rating>
         <Card.Text>₱{product.price}</Card.Text>
         {product.countInStock === 0 ? (
-          <Button variant="light" disabled>
-            Out of Stock
+          <Button variant="light">Out of Stock</Button>
+        ) : !product.isActive ? (
+          <Button variant="info" disabled>
+            Not Available
           </Button>
         ) : (
           <Button onClick={() => addToCartHandler(product)}>Add to Cart</Button>

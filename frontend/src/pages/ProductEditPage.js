@@ -64,6 +64,7 @@ export default function ProductEditPage() {
   const [countInStock, setCountInStock] = useState('');
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
+  const [isActive, setIsActive] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,6 +79,7 @@ export default function ProductEditPage() {
         setCountInStock(data.countInStock);
         setBrand(data.brand);
         setDescription(data.description);
+        setIsActive(data.isActive);
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
@@ -105,6 +107,7 @@ export default function ProductEditPage() {
           brand,
           countInStock,
           description,
+          isActive,
         },
         {
           headers: { authorization: `Bearer ${userInfo.token}` },
@@ -227,6 +230,15 @@ export default function ProductEditPage() {
             <FormControl
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+          </FormGroup>
+
+          <FormGroup className="mb-3" controlId="isActive">
+            <FormLabel>Active/Inactive</FormLabel>
+            <FormControl
+              value={isActive}
+              onChange={(e) => setIsActive(e.target.value)}
               required
             />
           </FormGroup>

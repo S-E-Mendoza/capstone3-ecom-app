@@ -31,6 +31,7 @@ const data = {
       countInStock: 10,
       rating: 4.8,
       numReviews: 10,
+      isActive: true,
     },
     {
       //_id: '2',
@@ -48,6 +49,7 @@ const data = {
       countInStock: 10,
       rating: 4.4,
       numReviews: 8,
+      isActive: true,
     },
     {
       //_id: '3',
@@ -64,6 +66,7 @@ const data = {
       countInStock: 10,
       rating: 4.9,
       numReviews: 10,
+      isActive: false,
     },
   ],
 };

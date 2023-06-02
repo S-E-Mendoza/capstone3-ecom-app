@@ -36,6 +36,7 @@ import DashboardPage from './pages/DashboardPage';
 import AdminRoute from './components/AdminRoute';
 import ProductListPage from './pages/ProductListPage';
 import ProductEditPage from './pages/ProductEditPage';
+import OrderListPage from './pages/OrderListPage';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -57,8 +58,8 @@ function App() {
       try {
         const { data } = await axios.get(`/api/products/categories`);
         setCategories(data);
-      } catch (error) {
-        toast.error(getError(error));
+      } catch (err) {
+        toast.error(getError(err));
       }
     };
     fetchCategories();
@@ -220,6 +221,15 @@ function App() {
                 element={
                   <AdminRoute>
                     <ProductEditPage />
+                  </AdminRoute>
+                }
+              />
+
+              <Route
+                path="/admin/orders"
+                element={
+                  <AdminRoute>
+                    <OrderListPage />
                   </AdminRoute>
                 }
               />
