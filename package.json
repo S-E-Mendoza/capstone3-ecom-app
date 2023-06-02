@@ -4,9 +4,6 @@
   "description": "1. Changes Nav bar style\r 2. Create Product Lists\r 3. Create API to retrieve all and single products\r 4. Create Cart Page\r 5. Added Mock Product Lists and Sample Users to MongoDB\r 6. Added Functionalities to Login & Shipping Address Page\r 7. Create Signup Page\r 8. Create Payment Method Page\r 9. Create Review Order and Payment Details Page\r 10. Create Order Status Page\r 11. Updating User Profile",
   "main": "index.js",
   "scripts": {
-    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
-    "start": "node backend/server.js",
-    "dev": "concurrently \"npm run server.js\" \"npm run index.js\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

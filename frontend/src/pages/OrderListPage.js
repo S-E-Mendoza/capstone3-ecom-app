@@ -40,7 +40,7 @@ export default function OrderListPage() {
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
-        dispatch({ type: 'FETCH_ERROR', payload: getError(err) });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
     fetchData();
@@ -53,7 +53,7 @@ export default function OrderListPage() {
       </Helmet>
       <h1>Orders List</h1>
       {loading ? (
-        (console.log(loading), (<LoadingBox />))
+        <LoadingBox />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
