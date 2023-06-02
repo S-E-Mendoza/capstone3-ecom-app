@@ -105,7 +105,7 @@ export default function ProductListPage() {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <>
+        <fragment>
           <table className="table">
             <thead>
               <tr>
@@ -114,6 +114,7 @@ export default function ProductListPage() {
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
+                <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -124,6 +125,14 @@ export default function ProductListPage() {
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
+                  <td>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => navigate(`/admin/product/${product._id}`)}>
+                      Edit
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -138,7 +147,7 @@ export default function ProductListPage() {
               </Link>
             ))}
           </div>
-        </>
+        </fragment>
       )}
     </div>
   );
