@@ -234,6 +234,8 @@ function App() {
                 }
               />
 
+              <Route path="/admin/users" element={<AdminRoute></AdminRoute>} />
+
               <Route path="/" element={<HomePage />} />
             </Routes>
           </Container>
