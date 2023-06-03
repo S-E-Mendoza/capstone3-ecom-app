@@ -147,14 +147,14 @@ function App() {
               ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column'
               : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
           }>
-          <Nav className="flex-column text-white w-100 p-2">
+          <Nav className="flex-column text-white w-100 p-2 my-4 mx-4">
             <NavItem>
               <strong>Categories</strong>
             </NavItem>
             {categories.map((category) => (
               <NavItem key={category}>
                 <LinkContainer
-                  to={`/search-category=${category}`}
+                  to={`/search?category=${category}`}
                   onClick={() => setSidebarIsOpen(false)}>
                   <NavLink>{category}</NavLink>
                 </LinkContainer>

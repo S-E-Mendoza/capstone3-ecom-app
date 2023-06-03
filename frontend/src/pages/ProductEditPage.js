@@ -15,6 +15,7 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { toast } from 'react-toastify';
+import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -235,10 +236,18 @@ export default function ProductEditPage() {
           </FormGroup>
 
           <FormGroup className="mb-3" controlId="isActive">
-            <FormLabel>Active/Inactive</FormLabel>
-            <FormControl
-              value={isActive}
-              onChange={(e) => setIsActive(e.target.value)}
+            <FormLabel>Status</FormLabel>&nbsp;&nbsp;
+            <BootstrapSwitchButton
+              onstyle="success"
+              offstyle="secondary"
+              width={105}
+              height={20}
+              checked={isActive}
+              onlabel="activate"
+              offlabel="deactivate"
+              onChange={() => {
+                isActive ? setIsActive(false) : setIsActive(true);
+              }}
               required
             />
           </FormGroup>

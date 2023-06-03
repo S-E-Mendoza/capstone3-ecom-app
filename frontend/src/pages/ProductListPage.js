@@ -169,9 +169,7 @@ export default function ProductListPage() {
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
-                  <td>
-                    {product.isActive ? 'Active' : 'Inactive/Deactivated'}
-                  </td>
+                  <td>{product.isActive ? 'Active' : 'Inactive'}</td>
                   <td>
                     <Button
                       type="button"
