@@ -1,7 +1,6 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useReducer, useState } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import { Store } from '../Store';
 import { getError } from '../utils';
 import LoadingBox from '../components/LoadingBox';
@@ -70,8 +69,6 @@ export default function ProductListPage() {
   const { state } = useContext(Store);
   const { userInfo } = state;
 
-  const { isActive, setIsActive } = useState('');
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -92,24 +89,8 @@ export default function ProductListPage() {
   }, [page, userInfo, successDelete]);
 
   const createHandler = async () => {
-    if (window.confirm('Create new product?')) {
-      try {
-        dispatch({ type: 'CREATE_REQUEST' });
-        const { data } = await axios.post(
-          '/api/products',
-          {},
-          { headers: { authorization: `Bearer ${userInfo.token}` } },
-        );
-        toast.success('Product successfully created');
-        dispatch({ type: 'CREATE_SUCCESS' });
-        navigate(`/admin/product/${data.product._id}`);
-      } catch (error) {
-        toast.error(getError(error));
-        dispatch({ type: 'CREATE_FAIL' });
-      }
-    }
+    navigate('/admin/products/add-product');
   };
-
   const deleteHandler = async (product) => {
     if (window.confirm('Are you sure to delete?')) {
       try {

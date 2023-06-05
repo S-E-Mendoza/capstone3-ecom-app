@@ -16,16 +16,16 @@ productRouter.post(
   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newProduct = new Product({
-      name: 'Nissan-Leaf' + Date.now(),
-      slug: 'Nissan-leaf-hatchback' + Date.now(),
-      image: '/images/Nissan-Leaf.png',
-      price: 0,
-      category: 'Hatchback',
-      brand: 'Nissan',
-      countInStock: 0,
+      name: req.body.name,
+      slug: req.body.slug,
+      image: req.body.image,
+      price: req.body.price,
+      category: req.body.category,
+      brand: req.body.brand,
+      countInStock: req.body.countInStock,
       rating: 0,
       numReviews: 0,
-      description: 'Sample description',
+      description: req.body.description,
     });
     const product = await newProduct.save();
     res.send({ message: 'Product Created', product });
